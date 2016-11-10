@@ -20,7 +20,7 @@ class Post(models.Model):
 
 
 """
-models.CharField -- текстовое поле с ограничением на количество символов. (Обязательный атрибус max_length=int)
+models.CharField -- текстовое поле с ограничением на количество символов. (Обязательный атрибут max_length=int)
 models.TextField -- поле для неограниченно длинного текста. 
 models.DateTimeField -- дата и время.
 models.ForeignKey -- ссылка на другую модель.
