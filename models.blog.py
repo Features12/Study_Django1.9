@@ -17,3 +17,9 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+"""models.CharField -- текстовое поле с ограничением на количество символов.
+models.TextField -- поле для неограниченно длинного текста. 
+models.DateTimeField -- дата и время.
+models.ForeignKey -- ссылка на другую модель."""
