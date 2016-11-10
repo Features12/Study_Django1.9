@@ -19,7 +19,9 @@ class Post(models.Model):
         return self.title
 
 
-"""models.CharField -- текстовое поле с ограничением на количество символов.
+"""
+models.CharField -- текстовое поле с ограничением на количество символов. (Обязательный атрибус max_length=int)
 models.TextField -- поле для неограниченно длинного текста. 
 models.DateTimeField -- дата и время.
-models.ForeignKey -- ссылка на другую модель."""
+models.ForeignKey -- ссылка на другую модель.
+"""
