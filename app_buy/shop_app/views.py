@@ -1,8 +1,12 @@
 from django.shortcuts import render
+from .models import Shop_List
 
 
 def output(request):
-    return render(request, 'shop_app/index.html')
+    context = {
+        "all_shop_list" : Shop_List.objects.all(),
+               }
+    return render(request, 'shop_app/index.html', context)
 
 
 def garbage(request):

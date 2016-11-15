@@ -6,5 +6,5 @@ class Shop_List(models.Model):
     price = models.FloatField()
 
 
-    def __str__(self):
-        return self.name
+    #def __str__(self):
+        #return self.name, self.kind
