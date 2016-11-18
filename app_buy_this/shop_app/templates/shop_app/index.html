@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home Page</title>
+    <link href="index_style.css" rel="stylesheet">
+</head>
+<body>
+<body bgcolor="#f0ffff"></body>
+<div>
+	<h1><center>Shop List</center></h1><hr>
+</div>
+<div>
+	{% block content %}
+	<ul>
+		{% for shop_items in all_shop_list %}
+		<li><h2><a href="items_details"> {{ shop_items.name }} </a></h2></li>
+		{{shop_items.kind}}
+		{{shop_items.price}}
+		{% endfor %}
+	</ul>
+	{% endblock %}
+</div>
+</body>
+</html>
