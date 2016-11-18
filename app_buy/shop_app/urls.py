@@ -5,6 +5,7 @@ urlpatterns = [
     url(r'^$', output),#main page
     url(r'^garbage/$', garbage), #garbage
     url(r'^items_details/$', items_details), #info items
+    url(r'^items_details/(?P<id>\w)$', items_details),
     url(r'^login/$', login), # login
     url(r'^reg/$', reg), # registration
     ]

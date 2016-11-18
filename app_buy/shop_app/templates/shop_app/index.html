@@ -13,11 +13,15 @@
 	{% block content %}
 	<ul>
 		{% for shop_items in all_shop_list %}
-		<li><h2><a href="items_details"> {{ shop_items.name }} </a></h2></li>
-		{{shop_items.kind}}
-		{{shop_items.price}}
+		<li><h2>Name: <a href="items_details/{{shop_items.id}}"> {{ shop_items.name }} </a></h2></li>
+		<h4>Kind: {{shop_items.kind}}</h4>
+		<h4>Price: {{shop_items.price}}</h4>
+		<div><button>Buy</button></div>
+
+
 		{% endfor %}
 	</ul>
+
 	{% endblock %}
 </div>
 </body>
