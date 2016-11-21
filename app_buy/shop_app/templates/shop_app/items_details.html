@@ -7,22 +7,39 @@
 </head>
 <body>
 <body bgcolor="#f0ffff"></body>
+
+<div class="top-bar">
+	<section class="top-bar-section">
+	<ul class="right">
+        <a href="/"> <= </a>
+	{% if username %}
+        <li><button>Curt</button></li>
+	{% endif %}
+	</ul>
+	</section>
+</div>
+
 <div>
 	<h1><center>Info items</center></h1><hr>
 </div>
 
 {% block content %}
-    <ul>
-        {% for shop_items in all_shop_list %}
-            {% if shop_items.id == 1 %}
-                {{shop_items.name}}
+<ul>
+    <h4>Name: {{ details_output.name }}<br></h4>
+    <h4>Kind: {{ details_output.kind }}<br></h4>
+    <h4>Price: {{ details_output.price }}<br></h4>
+    <h4>Manufacturer: {{ details_output.manufacturer }}<br></h4>
+    <h4> Date Receipt: {{ details_output.date_receipt }}<br></h4>
+    <h4>Type Form: {{ details_output.type_form }}<br></h4>
+    {% if username %}
+    <div><button>Buy</button></div>
+    {% else %}
+    <div><button><a href="/login/">Sign In</a> </button></div>
+    {% endif %}
 
 
+</ul>
 
-
-    </ul>
-            {% endif %}
-        {% endfor %}
 {% endblock %}
 
 </body>

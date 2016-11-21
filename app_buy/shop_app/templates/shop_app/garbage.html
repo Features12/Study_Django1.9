@@ -10,5 +10,13 @@
 <div>
 	<h1><center>Curt</center></h1><hr>
 </div>
+
+{% block content %}
+{% for all in all_shop_list %}
+    <br>NAME: {{all.name}} = {{all.price}}
+{%endfor%}
+{% endblock %}
+
+
 </body>
 </html>

@@ -10,3 +10,7 @@ class Shop_List(models.Model):
     type_form = models.TextField(default="1-object") # форма отпуска
 
 
+
+
+
+

@@ -10,17 +10,12 @@
 <div>
 	<h1><center>Login</center></h1><hr>
 </div>
-
-<form action="" id="login">
-<div class="forms">
- 		<p><label for="">Name: </label></p><input type="text" required><br>
- 		<p><label for="">Password: </label></p><input type="password" required><br>
-</div>
-<div class="submit">
-	<p><button type="submit">Login</button></p>
-</div>
-</form>
-
+	<form action="/login/"  method='post' class='reg-form' id="">{% csrf_token %}
+		{{form}}
+		<div class="submit">
+			<p><button type="submit">Login</button></p>
+		</div>
+	</form>
 <p>No account?&nbsp;&nbsp;<a href="http://127.0.0.1:8000/reg/">Registration</a><span class="fontawesome-arrow-right"></span></p>
 
 </body>
