@@ -12,7 +12,7 @@
 	<ul class="right">
 	{% if username %}
 	<li><a href="/logout/"><button>Quit {{username}}</button></a></li>
-		<li><button>Curt</button></li>
+		<li><button><a href="http://127.0.0.1:8000/garbage/" >Cart</a></button></li>
 	{% else %}
 	<li><a href="/login/"><button>Sign in</button></a></li>
 	{% endif %}
@@ -32,13 +32,12 @@
 		<h4>Kind: {{shop_items.kind}}</h4>
 		<h4>Price: {{shop_items.price}}</h4>
 		{% if username %}
-		<div><button>Buy</button></div>
+		<div><button><a href="garbage/">Buy</a></button></div>
 		{% else %}
 		<div><button><a href="/login/">Sign In</a> </button></div>
 		{% endif %}
 		{% endfor %}
 	</ul>
-
 	{% endblock %}
 </div>
 </body>

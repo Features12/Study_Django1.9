@@ -13,7 +13,7 @@
 	<ul class="right">
         <a href="/"> <= </a>
 	{% if username %}
-        <li><button>Curt</button></li>
+        <li><button><a href="http://127.0.0.1:8000/garbage/" >Cart</a></button></li>
 	{% endif %}
 	</ul>
 	</section>
@@ -31,13 +31,7 @@
     <h4>Manufacturer: {{ details_output.manufacturer }}<br></h4>
     <h4> Date Receipt: {{ details_output.date_receipt }}<br></h4>
     <h4>Type Form: {{ details_output.type_form }}<br></h4>
-    {% if username %}
-    <div><button>Buy</button></div>
-    {% else %}
-    <div><button><a href="/login/">Sign In</a> </button></div>
-    {% endif %}
-
-
+    <div><button><a href="http://127.0.0.1:8000/garbage/{{details_output.id}}">Buy</a></button></div>
 </ul>
 
 {% endblock %}

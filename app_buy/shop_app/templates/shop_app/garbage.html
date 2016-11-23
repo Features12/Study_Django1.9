@@ -2,21 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Curt</title>
+    <title>Cart</title>
     <link href="garbage_style.css" rel="stylesheet">
+    <a href="/"> <= </a>
 </head>
 <body>
 <body bgcolor="#f0ffff"></body>
 <div>
-	<h1><center>Curt</center></h1><hr>
+	<h1><center>Cart</center></h1><hr>
 </div>
-
 {% block content %}
-{% for all in all_shop_list %}
-    <br>NAME: {{all.name}} = {{all.price}}
-{%endfor%}
+{{output_cart}}
+        <tr>
+            <h4>NAME: <td>{{ details_output.name }}</td><br></h4>
+            <h4>PRICE: <td>{{ details_output.price }}</td></h4>
+        </tr>
+<h3>All price: {{name_variable}}</h3>
+{% if username %}
+		<div><button><a href="/">Buy</a></button></div>
+    {% endif %}
 {% endblock %}
-
-
 </body>
 </html>

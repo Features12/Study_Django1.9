@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from .models import Shop_List
+from django.shortcuts import render, render_to_response
+from .models import Shop_List, Shop_Cart
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User, auth
 from django.core.context_processors import csrf
@@ -7,6 +7,8 @@ from django.shortcuts import  redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import auth
 from django.contrib.auth import logout
+
+
 
 
 # Основаная страница index.hrml
@@ -21,11 +23,26 @@ def output(request):
 
 # Корзина
 def garbage(request):
-    context = {
-        "all_shop_list": Shop_List.objects.all(),
+    context_details_1 = {
+        "username": auth.get_user(request).username,
+        "output_cart" : Shop_Cart.objects.filter(user = request.user),
     }
-    return render(request, 'shop_app/garbage.html', context)
+    return render(request, 'shop_app/garbage.html', context_details_1)
 
+
+def shop_cart(request,id):
+    Shop_Cart.objects.create(
+        user=request.user,
+        number_product_id=id,
+        quantity_product=1,
+        state_product="add")
+    context_details_2 = {
+        "shop_list": Shop_Cart.objects.filter(user=request.user),
+        "username": auth.get_user(request).username,
+        "details_name": Shop_List.objects.get(id=id),
+        "details_output": Shop_List.objects.filter(id=id).first(),
+    }
+    return render(request, 'shop_app/garbage.html', context_details_2)
 
 # Детальная страница отображения продуктов из index.html
 def items_details(request,id):
