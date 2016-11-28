@@ -26,7 +26,13 @@ def garbage(request):
     context_details_1 = {
         "username": auth.get_user(request).username,
         "output_cart" : Shop_Cart.objects.filter(user = request.user),
+        "cart_list" : Shop_Cart.objects.filter(user = request.user),
+        "cart_state" : Shop_Cart.objects.filter(state_product = "add"),
     }
+    for cart_price in context_details_1["cart_list"].number_product.price:
+        sum_price = 0
+        sum_price += cart_price
+
     return render(request, 'shop_app/garbage.html', context_details_1)
 
 
@@ -36,6 +42,7 @@ def shop_cart(request,id):
         number_product_id=id,
         quantity_product=1,
         state_product="add")
+
     context_details_2 = {
         "shop_list": Shop_Cart.objects.filter(user=request.user),
         "username": auth.get_user(request).username,

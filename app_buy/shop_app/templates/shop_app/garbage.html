@@ -12,15 +12,15 @@
 	<h1><center>Cart</center></h1><hr>
 </div>
 {% block content %}
-{{output_cart}}
-        <tr>
-            <h4>NAME: <td>{{ details_output.name }}</td><br></h4>
-            <h4>PRICE: <td>{{ details_output.price }}</td></h4>
-        </tr>
-<h3>All price: {{name_variable}}</h3>
-{% if username %}
-		<div><button><a href="/">Buy</a></button></div>
-    {% endif %}
+{% for cart in cart_list %}
+    <div>
+        Name: {{cart.number_product.name}}<br>
+        Price: {{cart.number_product.price}}<br>
+        Count: {{cart.count}}<br>
+        State: {{cart.state}}<br>
+    </div>
+{% endfor %}
+ALL PRICE: {{sum_price}}
 {% endblock %}
 </body>
 </html>
