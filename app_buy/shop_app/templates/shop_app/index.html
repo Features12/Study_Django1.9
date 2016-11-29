@@ -32,7 +32,7 @@
 		<h4>Kind: {{shop_items.kind}}</h4>
 		<h4>Price: {{shop_items.price}}</h4>
 		{% if username %}
-		<div><button><a href="garbage/">Buy</a></button></div>
+		<div><button><a href="items_details/{{shop_items.id}}">Buy</a></button></div>
 		{% else %}
 		<div><button><a href="/login/">Sign In</a> </button></div>
 		{% endif %}

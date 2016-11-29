@@ -27,12 +27,20 @@ def garbage(request):
         "username": auth.get_user(request).username,
         "output_cart" : Shop_Cart.objects.filter(user = request.user),
         "cart_list" : Shop_Cart.objects.filter(user = request.user, state_product = "add"),
-        "sum" : 0
+        "sum" : 0,
     }
     for element in context_details_1["cart_list"]:
         context_details_1["sum"] += element.product.price
 
     return render(request, 'shop_app/garbage.html', context_details_1)
+
+
+# Функция покупки всех товаров (статус из add в buy)
+def buy_items(request):
+    context_details_3 = {
+        "buy": Shop_Cart.objects.filter(user=request.user, state_product="add").update(state_product = "buy")
+    }
+    return render(request, "shop_app/garbage.html", context_details_3)
 
 
 def shop_cart(request,id):
@@ -47,19 +55,10 @@ def shop_cart(request,id):
         "username": auth.get_user(request).username,
         "details_name": Shop_List.objects.get(id=id),
         "details_output": Shop_List.objects.filter(id=id).first(),
+        "a" : "Запрос обработан и успешно добавлен в корзину!"
     }
+
     return render(request, 'shop_app/garbage.html', context_details_2)
-
-
-# Функция покупки нескольких одинаковых товаров
-def buy(request, id):
-    context_details_3 = {
-        "item_buy" : Shop_Cart.objects.get(id=id),
-    }
-    context_details_3["item_buy"].quantity_product += 1
-    context_details_3["item_buy"].save()
-
-    return redirect(request, 'shop_app/garbage.html', context_details_3)
 
 
 # Детальная страница отображения продуктов из index.html

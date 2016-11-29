@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Cart</title>
@@ -17,11 +17,12 @@
         Name: {{cart.product.name}}<br>
         Price: {{cart.product.price}}<br>
         Count: {{cart.quantity_product}}<br>
-        State: {{cart.state_product}}<br>
-        <button><a href="http://127.0.0.1:8000/garbage/buy">Buy</a></button><hr>
+        State: {{cart.state_product}}<br><hr>
     </div>
 {% endfor %}
-ALL PRICE: {{sum}}
+    <h3><center>{{ a }}</center></h3>
+    <button><a href="http://127.0.0.1:8000/garbage/buy_all/{{ buy }}">Buy all</a></button><hr>
+"ALL PRICE" : {{sum}}
 {% endblock %}
 </body>
 </html>
