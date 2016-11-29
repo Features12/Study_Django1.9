@@ -26,12 +26,11 @@ def garbage(request):
     context_details_1 = {
         "username": auth.get_user(request).username,
         "output_cart" : Shop_Cart.objects.filter(user = request.user),
-        "cart_list" : Shop_Cart.objects.filter(user = request.user),
-        "cart_state" : Shop_Cart.objects.filter(state_product = "add"),
+        "cart_list" : Shop_Cart.objects.filter(user = request.user, state_product = "add"),
+        "sum" : 0
     }
-    for cart_price in context_details_1["cart_list"].number_product.price:
-        sum_price = 0
-        sum_price += cart_price
+    for element in context_details_1["cart_list"]:
+        context_details_1["sum"] += element.product.price
 
     return render(request, 'shop_app/garbage.html', context_details_1)
 
@@ -39,7 +38,7 @@ def garbage(request):
 def shop_cart(request,id):
     Shop_Cart.objects.create(
         user=request.user,
-        number_product_id=id,
+        product_id=id,
         quantity_product=1,
         state_product="add")
 
@@ -51,6 +50,18 @@ def shop_cart(request,id):
     }
     return render(request, 'shop_app/garbage.html', context_details_2)
 
+
+# Функция покупки нескольких одинаковых товаров
+def buy(request, id):
+    context_details_3 = {
+        "item_buy" : Shop_Cart.objects.get(id=id),
+    }
+    context_details_3["item_buy"].quantity_product += 1
+    context_details_3["item_buy"].save()
+
+    return redirect(request, 'shop_app/garbage.html', context_details_3)
+
+
 # Детальная страница отображения продуктов из index.html
 def items_details(request,id):
     context_details = {
@@ -59,6 +70,7 @@ def items_details(request,id):
         "username": auth.get_user(request).username,
     }
     return render(request, 'shop_app/items_details.html', context_details)
+
 
 # Авторизация пользователя через стандартную форму Django
 def logins(request):

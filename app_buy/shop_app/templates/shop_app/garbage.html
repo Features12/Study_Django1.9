@@ -14,13 +14,14 @@
 {% block content %}
 {% for cart in cart_list %}
     <div>
-        Name: {{cart.number_product.name}}<br>
-        Price: {{cart.number_product.price}}<br>
-        Count: {{cart.count}}<br>
-        State: {{cart.state}}<br>
+        Name: {{cart.product.name}}<br>
+        Price: {{cart.product.price}}<br>
+        Count: {{cart.quantity_product}}<br>
+        State: {{cart.state_product}}<br>
+        <button><a href="http://127.0.0.1:8000/garbage/buy">Buy</a></button><hr>
     </div>
 {% endfor %}
-ALL PRICE: {{sum_price}}
+ALL PRICE: {{sum}}
 {% endblock %}
 </body>
 </html>

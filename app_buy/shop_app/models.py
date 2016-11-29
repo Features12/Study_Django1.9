@@ -12,7 +12,7 @@ class Shop_List(models.Model):
 
 
 class Shop_Cart(models.Model):
-    number_product = models.ForeignKey(Shop_List)
+    product = models.ForeignKey(Shop_List)
     quantity_product = models.PositiveIntegerField(default=1)
     state_product = models.TextField(default="no_add")
     user = models.ForeignKey(User)
