@@ -44,11 +44,9 @@ def buy_items(request):
 
 
 def shop_cart(request,id):
-    a = Shop_List.objects.all()
-    b = a.name
-    b.save()
-    count = Shop_Cart.objects.filter(user = request.user, name = b)
-    if b in count:
+    a = Shop_List.objects.all().values("name", flat = True)
+    count = Shop_Cart.objects.filter(user = request.user, name = a)
+    if a in count:
         count.quantity_product += 1
         count.save()
     else:
