@@ -23,52 +23,59 @@ def output(request):
 
 # Корзина
 def garbage(request):
-    context_details_1 = {
+    context = {
         "username": auth.get_user(request).username,
         "output_cart" : Shop_Cart.objects.filter(user = request.user),
         "cart_list" : Shop_Cart.objects.filter(user = request.user, state_product = "add"),
         "sum" : 0,
     }
-    for element in context_details_1["cart_list"]:
-        context_details_1["sum"] += element.product.price
+    for element in context["cart_list"]:
+        context["sum"] += element.product.price
 
-    return render(request, 'shop_app/garbage.html', context_details_1)
+    return render(request, 'shop_app/garbage.html', context)
 
 
 # Функция покупки всех товаров (статус из add в buy)
 def buy_items(request):
-    context_details_3 = {
-        "buy": Shop_Cart.objects.filter(user=request.user, state_product="add").update(state_product = "buy")
+    context = {
+        "buy": Shop_Cart.objects.filter(user=request.user, state_product="add").update(state_product = "buy"),
     }
-    return render(request, "shop_app/garbage.html", context_details_3)
+    return render(request, "shop_app/garbage.html", context)
 
 
 def shop_cart(request,id):
-    Shop_Cart.objects.create(
+    a = Shop_List.objects.all()
+    b = a.name
+    b.save()
+    count = Shop_Cart.objects.filter(user = request.user, name = b)
+    if b in count:
+        count.quantity_product += 1
+        count.save()
+    else:
+        Shop_Cart.objects.create(
         user=request.user,
         product_id=id,
         quantity_product=1,
         state_product="add")
 
-    context_details_2 = {
+    context = {
         "shop_list": Shop_Cart.objects.filter(user=request.user),
         "username": auth.get_user(request).username,
         "details_name": Shop_List.objects.get(id=id),
         "details_output": Shop_List.objects.filter(id=id).first(),
-        "a" : "Запрос обработан и успешно добавлен в корзину!"
     }
 
-    return render(request, 'shop_app/garbage.html', context_details_2)
+    return render(request, 'shop_app/garbage.html', context)
 
 
 # Детальная страница отображения продуктов из index.html
 def items_details(request,id):
-    context_details = {
+    context = {
         "details_name" : Shop_List.objects.get(id = id),
         "details_output" : Shop_List.objects.filter(id = id).first(),
         "username": auth.get_user(request).username,
     }
-    return render(request, 'shop_app/items_details.html', context_details)
+    return render(request, 'shop_app/items_details.html', context)
 
 
 # Авторизация пользователя через стандартную форму Django
