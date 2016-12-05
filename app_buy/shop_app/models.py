@@ -10,9 +10,21 @@ class Shop_List(models.Model):
     date_receipt = models.DateField() # дата поступления
     type_form = models.TextField(default="1-object") # форма отпуска
 
+    def __str__(self):
+        return self.name
+
 
 class Shop_Cart(models.Model):
     product = models.ForeignKey(Shop_List)
     quantity_product = models.PositiveIntegerField(default=1)
     state_product = models.TextField(default="no_add")
     user = models.ForeignKey(User)
+
+
+class News(models.Model):
+    header = models.CharField(max_length=50)
+    picture = models.ImageField()
+    descriptions = models.TextField()
+
+    def __str__(self):
+        return self.header

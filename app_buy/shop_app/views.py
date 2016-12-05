@@ -1,5 +1,5 @@
-from django.shortcuts import render, render_to_response
-from .models import Shop_List, Shop_Cart
+from django.shortcuts import render, render_to_response, HttpResponse
+from .models import Shop_List, Shop_Cart, News
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User, auth
 from django.core.context_processors import csrf
@@ -11,14 +11,26 @@ from django.contrib.auth import logout
 
 
 
-# Основаная страница index.hrml
+# Основаная страница index.html
+
+def news_page(request):
+    context = {
+        "username": auth.get_user(request).username,
+        "all_news": News.objects.all()[0:9],
+
+    }
+    return render(request,'shop_app/index.html', context)
+
+
+
+
 # Отображение всех товаров на сайте
 def output(request):
     context = {
         "all_shop_list" : Shop_List.objects.all(),
         "username" : auth.get_user(request).username,
                }
-    return render(request, 'shop_app/index.html', context)
+    return render(request, 'shop_app/shop.html', context)
 
 
 # Корзина
@@ -44,17 +56,19 @@ def buy_items(request):
 
 
 def shop_cart(request,id):
-    a = Shop_List.objects.all().values("name", flat = True)
-    count = Shop_Cart.objects.filter(user = request.user, name = a)
-    if a in count:
-        count.quantity_product += 1
-        count.save()
-    else:
-        Shop_Cart.objects.create(
-        user=request.user,
-        product_id=id,
-        quantity_product=1,
-        state_product="add")
+    x = Shop_List.objects.filter() # список всех объектов
+    for i in x:
+        a = i.id # получаем id каждого объекта(1,2,3,4,5,6,7)
+        b = Shop_Cart.objects.filter(user = request.user, product_id = a).first()
+        if b:
+            b.quantity_product += 1
+            b.save()
+        else:
+            Shop_Cart.objects.create(
+            user=request.user,
+            product_id=id,
+            quantity_product=1,
+            state_product="add")
 
     context = {
         "shop_list": Shop_Cart.objects.filter(user=request.user),
@@ -66,7 +80,7 @@ def shop_cart(request,id):
     return render(request, 'shop_app/garbage.html', context)
 
 
-# Детальная страница отображения продуктов из index.html
+# Детальная страница отображения продуктов из shop.html
 def items_details(request,id):
     context = {
         "details_name" : Shop_List.objects.get(id = id),
@@ -88,7 +102,7 @@ def logins(request):
         user = auth.authenticate(username= username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("/") #возвращает на index.html (main page)
+            return redirect("/") #возвращает на index.html
         else:
             args["form"] = newuser_form
     return render(request, 'shop_app/login.html',args)

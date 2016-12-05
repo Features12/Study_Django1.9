@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Shop</title>
+</head>
+<body>
+
+<body bgcolor="#f0ffff"></body>
+<div align="right" class="top-bar">
+	<section class="top-bar-section">
+	<ul class="right">
+	{% if username %}
+	<a href="/logout/"><button >Quit {{username}}</button></a>
+		<li><button><a href="http://127.0.0.1:8000/garbage/" >Cart</a></button></li>
+	{% else %}
+	<a href="/login/"><button>Sign in</button></a>
+	{% endif %}
+	</ul>
+	</section>
+</div>
+
+
+<div>
+	<h1><center>Shop List</center></h1><hr>
+</div>
+<div>
+	{% block content %}
+	<ul>
+		{% for shop_items in all_shop_list %}
+		<li><h2>Name: <a href="items_details/{{shop_items.id}}"> {{ shop_items.name }} </a></h2></li>
+		<h4>Kind: {{shop_items.kind}}</h4>
+		<h4>Price: {{shop_items.price}}</h4>
+		{% if username %}
+		<div><button><a href="items_details/{{shop_items.id}}">Buy</a></button></div>
+		{% else %}
+		<div><button><a href="/login/">Sign In</a> </button></div>
+		{% endif %}
+		{% endfor %}
+	</ul>
+	{% endblock %}
+</div>
+</body>
+</html>
