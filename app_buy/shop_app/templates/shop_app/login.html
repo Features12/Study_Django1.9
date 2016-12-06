@@ -1,22 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link href="login_style.css" rel="stylesheet">
-</head>
-<body>
-<body bgcolor="#f0ffff"></body>
+{% extends 'shop_app/index.html'%}
+
+{% block title %}Cart{% endblock %}
+
+{% block name %}
 <div>
-	<h1><center>Login</center></h1><hr>
+	<h2><center>Login</center></h2><hr>
 </div>
+{% endblock %}
+
+{% block content %}
+<ul>
 	<form action="/login/"  method='post' class='reg-form' id="">{% csrf_token %}
 		{{form}}
-		<div class="submit">
+		<div class="submit" align="center">
 			<p><button type="submit">Login</button></p>
 		</div>
 	</form>
-<p>No account?&nbsp;&nbsp;<a href="http://127.0.0.1:8000/reg/">Registration</a><span class="fontawesome-arrow-right"></span></p>
+</ul>
+<ul><p>No account?&nbsp;&nbsp;<a href="http://127.0.0.1:8000/reg/">Registration</a><span class="fontawesome-arrow-right"></span></p></ul>
+{% endblock %}
 
-</body>
-</html>
+{% block navigation %}{% endblock %}

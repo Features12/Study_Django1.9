@@ -6,12 +6,10 @@
     <script src="{% static 'Bootstrap/js/jquery-3.1.1.min.js'  %}"></script>
     <script src="{% static 'Bootstrap/js/bootstrap.min.js' %}"></script>
     <meta charset="UTF-8">
-    <title>News</title>
-
-
+    <title>{% block title %}News{% endblock %}</title>
 </head>
 <body>
-{% block content %}
+{% block navbar %}
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -45,7 +43,15 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
+{% endblock %}
+{% block name %}
+<div>
+	<h2><center>News</center></h2><hr>
+</div>
+{% endblock %}
+<div id="content">
+    {% block content %}{% endblock %}
+</div>
 {% for i in all_news %}
     <div align="center">
         <div class="panel panel-default">
@@ -53,12 +59,17 @@
             <div class="panel-body">
                 {{ i.picture }}<br>
                 {{ i.descriptions|linebreaks|truncatechars:100 }}<br><hr>
+                <form action="#" method="post">
+                    <p><b>Send Us Your Comments:</b></p>
+                    <p><textarea rows="5" cols="35" name="text"></textarea></p>
+                    <p><input type="submit" value="Submit"></p>
+                </form>
             </div>
         </div>
     </div>
 {% endfor %}
 
-
+{% block navigation %}
 <div align="center">
 <nav aria-label="Page navigation">
   <ul class="pagination">

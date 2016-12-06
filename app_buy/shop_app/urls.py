@@ -5,10 +5,10 @@ urlpatterns = [
     url(r'^$', news_page),#main page
     url(r'^garbage/$', garbage), #garbage
     url(r'^garbage/(?P<id>\w)$', shop_cart), #details cart shop
-    url(r'garbage/buy_all/$', buy_items),
+    url(r'^garbage/buy_all/$', buy_items),
     url(r'^items_details/(?P<id>\w)$', items_details), # more details page
     url(r'^login/$', logins), # login users
     url(r'^logout/$', logout_view), # logout users
     url(r'^reg/$', reg), # registration users
-    url(r'shop/$', output) # shop page
+    url(r'^shop/$', output) # shop page
     ]

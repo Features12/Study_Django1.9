@@ -25,6 +25,8 @@ class News(models.Model):
     header = models.CharField(max_length=50)
     picture = models.ImageField()
     descriptions = models.TextField()
+    comments = models.TextField(null=False, blank=True)
+
 
     def __str__(self):
         return self.header

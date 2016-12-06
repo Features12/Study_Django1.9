@@ -1,27 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Info items</title>
-    <link href="items_details_style.css" rel="stylesheet">
-</head>
-<body>
-<body bgcolor="#f0ffff"></body>
+{% extends 'shop_app/index.html'%}
 
-<div class="top-bar">
-	<section class="top-bar-section">
-	<ul class="right">
-        <a href="/"> <= </a>
-	{% if username %}
-        <li><button><a href="http://127.0.0.1:8000/garbage/" >Cart</a></button></li>
-	{% endif %}
-	</ul>
-	</section>
-</div>
+{% block title %}Items Details{% endblock %}
 
+{% block name %}
 <div>
-	<h1><center>Info items</center></h1><hr>
+	<h2><center>Item Details</center></h2><hr>
 </div>
+{% endblock %}
 
 {% block content %}
 <ul>
@@ -30,11 +15,9 @@
     <h4>Price: {{ details_output.price }}<br></h4>
     <h4>Manufacturer: {{ details_output.manufacturer }}<br></h4>
     <h4> Date Receipt: {{ details_output.date_receipt }}<br></h4>
-    <h4>Type Form: {{ details_output.type_form }}<br></h4>
-    <div><button><a href="http://127.0.0.1:8000/garbage/{{details_output.id}}">Buy</a></button></div>
+    <h4>Type Form: {{ details_output.type_form }}<br></h4><br><hr>
+    <div align="center"><button><a href="http://127.0.0.1:8000/garbage/{{details_output.id}}">Buy</a></button></div>
 </ul>
-
 {% endblock %}
 
-</body>
-</html>
+{% block navigation %}{% endblock %}

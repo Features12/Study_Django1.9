@@ -1,27 +1,28 @@
-<!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
-<head>
-    <meta charset="UTF-8">
-    <title>Cart</title>
-    <link href="garbage_style.css" rel="stylesheet">
-    <a href="/"> <= </a>
-</head>
-<body>
-<body bgcolor="#f0ffff"></body>
+{% extends 'shop_app/index.html'%}
+
+{% block title %}Cart{% endblock %}
+
+{% block name %}
 <div>
-	<h1><center>Cart</center></h1><hr>
+	<h2><center>Cart</center></h2><hr>
 </div>
+{% endblock %}
+
 {% block content %}
 {% for cart in cart_list %}
     <div>
-        Name: {{cart.product.name}}<br>
-        Price: {{cart.product.price}}<br>
-        Count: {{cart.quantity_product}}<br>
-        State: {{cart.state_product}}<br><hr>
+        <ul>
+            Name: {{cart.product.name}}<br>
+            Price: {{cart.product.price}}<br>
+            Count: {{cart.quantity_product}}<br>
+            State: {{cart.state_product}}<br><hr>
+        </ul>
     </div>
 {% endfor %}
+
+<div align="center">
+    ALL PRICE: {{sum}}<br><br>
     <button><a href="http://127.0.0.1:8000/garbage/buy_all/">Buy all</a></button><hr>
-"ALL PRICE" : {{sum}}
+</div>
+
 {% endblock %}
-</body>
-</html>
