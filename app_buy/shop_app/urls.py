@@ -1,8 +1,9 @@
 from django.conf.urls import url
-from .views import output, garbage, items_details, logins, reg, logout_view,shop_cart, buy_items, news_page
+from .views import output, garbage, items_details, logins, reg, logout_view,shop_cart, buy_items, news_page, news_details
 
 urlpatterns = [
     url(r'^$', news_page),#main page
+    url(r'^(?P<id>\w)$',news_details), # details news page
     url(r'^garbage/$', garbage), #garbage
     url(r'^garbage/(?P<id>\w)$', shop_cart), #details cart shop
     url(r'^garbage/buy_all/$', buy_items),

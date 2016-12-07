@@ -1,0 +1,29 @@
+{% extends 'shop_app/index.html'%}
+
+{% block title %}News details page{% endblock %}
+
+{% block name %}
+<div>
+	<h2><center>News details page</center></h2><hr>
+</div>
+{% endblock %}
+
+{% block content %}
+<div align="center">
+     <div class="panel panel-default">
+         <div class="panel-heading">{{ details_output.header }}<br></div>
+            <div class="panel-body">
+                {{ details_output.picture }}<br><br>
+                {{ details_output.descriptions}}<br><hr>
+                {{ details_output.comments }}<br><br><br>
+                <form action="/" method="post">{% csrf_token %}
+                    <p><b>Send Us Your Comments:</b></p>
+                    <p><textarea rows="5" cols="35" name="text"></textarea></p>
+                    <p><input type="submit" value="Submit"></p>
+                </form>
+         </div>
+     </div>
+</div>
+{% endblock %}
+
+{% block navigation %} {% endblock %}

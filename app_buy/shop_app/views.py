@@ -12,7 +12,6 @@ from django.contrib.auth import logout
 
 
 # Основаная страница index.html
-
 def news_page(request):
     context = {
         "username": auth.get_user(request).username,
@@ -22,6 +21,17 @@ def news_page(request):
     return render(request,'shop_app/index.html', context)
 
 
+def news_details(request, id):
+    if request.POST:
+        com_text = request.POST['text']
+        News.objects.create(comments=com_text)
+    context = {
+        "username": auth.get_user(request).username,
+        "details_name": News.objects.get(id=id),
+        "details_output": News.objects.filter(id=id).first(),
+    }
+
+    return render(request, 'shop_app/news_details.html', context)
 
 
 # Отображение всех товаров на сайте

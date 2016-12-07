@@ -55,15 +55,10 @@
 {% for i in all_news %}
     <div align="center">
         <div class="panel panel-default">
-            <div class="panel-heading">{{ i.header }}<br></div>
+            <div class="panel-heading"><a href="http://127.0.0.1:8000/{{ i.id }}">{{ i.header }}</a> <br></div>
             <div class="panel-body">
-                {{ i.picture }}<br>
-                {{ i.descriptions|linebreaks|truncatechars:100 }}<br><hr>
-                <form action="#" method="post">
-                    <p><b>Send Us Your Comments:</b></p>
-                    <p><textarea rows="5" cols="35" name="text"></textarea></p>
-                    <p><input type="submit" value="Submit"></p>
-                </form>
+                {{ i.picture }}<br><br>
+                {{ i.descriptions|linebreaks|truncatechars:100 }}<br>
             </div>
         </div>
     </div>
