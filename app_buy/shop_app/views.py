@@ -1,21 +1,33 @@
 from django.shortcuts import render, render_to_response, HttpResponse
 from .models import Shop_List, Shop_Cart, News
 from django.contrib.auth import authenticate, login
-from django.contrib.auth.models import User, auth
 from django.core.context_processors import csrf
 from django.shortcuts import  redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import auth
 from django.contrib.auth import logout
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
 
 # Основаная страница index.html
 def news_page(request):
+    news = News.objects.all()
+    paginator = Paginator(news, 5)  # Show 25 contacts per page
+
+    page = request.GET.get('page')
+    try:
+        news = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        news = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        news = paginator.page(paginator.num_pages)
     context = {
         "username": auth.get_user(request).username,
-        "all_news": News.objects.all()[0:9],
+        "all_news": news,#[0:9],
 
     }
     return render(request,'shop_app/index.html', context)
@@ -35,9 +47,21 @@ def news_details(request, id):
 
 
 # Отображение всех товаров на сайте
-def output(request):
+def shop_output_list(request):
+    list = Shop_List.objects.all()
+    paginator = Paginator(list, 10)  # Show 25 contacts per page
+
+    page = request.GET.get('page')
+    try:
+        list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        list = paginator.page(paginator.num_pages)
     context = {
-        "all_shop_list" : Shop_List.objects.all(),
+        "all_shop_list" : list,
         "username" : auth.get_user(request).username,
                }
     return render(request, 'shop_app/shop.html', context)
@@ -45,7 +69,20 @@ def output(request):
 
 # Корзина
 def garbage(request):
+    list = Shop_Cart.objects.all()
+    paginator = Paginator(list, 10)  # Show 25 contacts per page
+
+    page = request.GET.get('page')
+    try:
+        list = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        list = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        list = paginator.page(paginator.num_pages)
     context = {
+        "all_cart_list": list,
         "username": auth.get_user(request).username,
         "output_cart" : Shop_Cart.objects.filter(user = request.user),
         "cart_list" : Shop_Cart.objects.filter(user = request.user, state_product = "add"),
@@ -66,7 +103,12 @@ def buy_items(request):
 
 
 def shop_cart(request,id):
-    x = Shop_List.objects.filter() # список всех объектов
+    Shop_Cart.objects.create(
+        user=request.user,
+        product_id=id,
+        quantity_product=1,
+        state_product="add")
+    """x = Shop_List.objects.filter() # список всех объектов
     for i in x:
         a = i.id # получаем id каждого объекта(1,2,3,4,5,6,7)
         b = Shop_Cart.objects.filter(user = request.user, product_id = a).first()
@@ -78,7 +120,7 @@ def shop_cart(request,id):
             user=request.user,
             product_id=id,
             quantity_product=1,
-            state_product="add")
+            state_product="add")"""
 
     context = {
         "shop_list": Shop_Cart.objects.filter(user=request.user),

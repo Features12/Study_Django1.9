@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,8 @@
     <title>{% block title %}News{% endblock %}</title>
 </head>
 <body>
+
+
 {% block navbar %}
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -34,7 +37,7 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
-          {% if username %}
+          {% if username|capfirst %}
 	        <li><a href="/logout/"> Quit: {{username}}</a></li>
           {% else %}
 	        <li><a href="/login/">Sign in</a></li>
@@ -44,14 +47,20 @@
   </div><!-- /.container-fluid -->
 </nav>
 {% endblock %}
+
+
 {% block name %}
 <div>
 	<h2><center>News</center></h2><hr>
 </div>
 {% endblock %}
+
+
 <div id="content">
     {% block content %}{% endblock %}
 </div>
+
+
 {% for i in all_news %}
     <div align="center">
         <div class="panel panel-default">
@@ -64,26 +73,40 @@
     </div>
 {% endfor %}
 
+
 {% block navigation %}
 <div align="center">
 <nav aria-label="Page navigation">
   <ul class="pagination">
-    <li>
-      <a href="#" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li>
-      <a href="#" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
+      {% if all_news.has_previous %}
+            <li><a href="?page={{ all_news.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+      {% endif %}
+      {% if all_news.has_next %}
+            <li><a href="?page=1">1</a></li>
+      {% endif %}
+      {% if all_news.has_next %}
+            <li><a href="?page=2">2</a></li>
+      {% endif %}
+      {% if all_news.has_next %}
+            <li><a href="?page=3">3</a></li>
+      {% endif %}
+      {% if all_news.has_next %}
+            <li><a href="?page=4">4</a></li>
+      {% endif %}
+      {% if all_news.has_next %}
+            <li><a href="?page=5">5</a></li>
+      {% endif %}
+      {% if all_news.has_next %}
+      <li><a href="?page={{ all_news.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+      {% endif %}
   </ul>
+
+<div align="center">
+    <span class="current">
+        Page {{ all_news.number }} of {{ all_news.paginator.num_pages }}
+    </span>
+</div>
+
 </nav>
 </div>
 {% endblock %}
