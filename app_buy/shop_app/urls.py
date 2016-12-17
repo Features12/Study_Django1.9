@@ -5,6 +5,7 @@ urlpatterns = [
     url(r'^$', news_page),#main page
     url(r'^(?P<id>\w{1,2})$',news_details), # details news page
     url(r'^garbage/$', garbage), #garbage
+    url(r'^garbage/(?P<x>\d{0,})$',garbage),
     url(r'^garbage/(?P<id>\w{1,2})$', shop_cart), #details cart shop
     url(r'^garbage/buy_all/$', buy_items),
     url(r'^items_details/(?P<id>\w{1,2})$', items_details), # more details page

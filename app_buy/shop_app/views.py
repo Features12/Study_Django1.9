@@ -48,41 +48,31 @@ def news_details(request, id):
 
 # Отображение всех товаров на сайте
 def shop_output_list(request):
-    list = Shop_List.objects.all()
-    paginator = Paginator(list, 10)  # Show 25 contacts per page
+    list_obj = Shop_List.objects.all()
+    paginator = Paginator(list_obj, 10)  # Show 25 contacts per page
 
     page = request.GET.get('page')
     try:
-        list = paginator.page(page)
+        list_obj = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer, deliver first page.
-        list = paginator.page(1)
+        list_obj = paginator.page(1)
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver last page of results.
-        list = paginator.page(paginator.num_pages)
+        list_obj = paginator.page(paginator.num_pages)
     context = {
-        "all_shop_list" : list,
+        "all_shop_list" : list_obj,
         "username" : auth.get_user(request).username,
                }
     return render(request, 'shop_app/shop.html', context)
 
 
 # Корзина
-def garbage(request):
-    list = Shop_Cart.objects.all()
-    paginator = Paginator(list, 10)  # Show 25 contacts per page
-
-    page = request.GET.get('page')
-    try:
-        list = paginator.page(page)
-    except PageNotAnInteger:
-        # If page is not an integer, deliver first page.
-        list = paginator.page(1)
-    except EmptyPage:
-        # If page is out of range (e.g. 9999), deliver last page of results.
-        list = paginator.page(paginator.num_pages)
+def garbage(request, x=1):
     context = {
-        "all_cart_list": list,
+        "paginator" : Shop_Cart.objects.all()[(x - 1) * 10:x * 10],
+        "paginator_count" : Shop_Cart.objects.count()//10,
+        "all_cart_list": Shop_Cart.objects.all(),
         "username": auth.get_user(request).username,
         "output_cart" : Shop_Cart.objects.filter(user = request.user),
         "cart_list" : Shop_Cart.objects.filter(user = request.user, state_product = "add"),
@@ -103,24 +93,16 @@ def buy_items(request):
 
 
 def shop_cart(request,id):
-    Shop_Cart.objects.create(
+    b = Shop_Cart.objects.filter(user = request.user, product_id = id).first()
+    if b:
+        b.quantity_product += 1
+        b.save()
+    else:
+        Shop_Cart.objects.create(
         user=request.user,
         product_id=id,
         quantity_product=1,
         state_product="add")
-    """x = Shop_List.objects.filter() # список всех объектов
-    for i in x:
-        a = i.id # получаем id каждого объекта(1,2,3,4,5,6,7)
-        b = Shop_Cart.objects.filter(user = request.user, product_id = a).first()
-        if b:
-            b.quantity_product += 1
-            b.save()
-        else:
-            Shop_Cart.objects.create(
-            user=request.user,
-            product_id=id,
-            quantity_product=1,
-            state_product="add")"""
 
     context = {
         "shop_list": Shop_Cart.objects.filter(user=request.user),
