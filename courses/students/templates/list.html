@@ -2,18 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{{ title }}</title>
 </head>
 <body>
     <h1>HELLO WORLD</h1>
     <ul class="list-group">
         {% for student in students %}
         <li class="list-group-items">
-            <a href="/students/{{student.id}}">
-                {{student.name}} {{student.surname}}
+            {{forloop.counter}}
+            <a href="/students/{{ student.id }}">
+                {{student.name|capfirst}} {{student.surname}}
             </a>
         </li>
         {% endfor %}
     </ul>
+    <form action="/" method="post"><br>
+        {{form.as_p}}
+        <input type="submit"/>
+    </form>
 </body>
 </html>
